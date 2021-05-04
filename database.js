@@ -21,10 +21,10 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
             if (err) {
                 console.log(err)
             }
-            else {
-                var insert = 'INSERT INTO question (questionTitle, question, answerOne, answerTwo, answerThree, correctAnswer) VALUES (?,?,?,?,?,?)'
-                db.run(insert, ["Question One","What is the sum from: for(int x = 0; x<10; x++","0","9","10",2])
-            }
+            // else {
+            //     var insert = 'INSERT INTO question (questionTitle, question, answerOne, answerTwo, answerThree, correctAnswer) VALUES (?,?,?,?,?,?)'
+            //     db.run(insert, ["Question One","What is the sum from: for(int x = 0; x<10; x++","0","9","10",2])
+            // }
         })
     }
 })
