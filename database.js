@@ -12,7 +12,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
         db.run(`CREATE TABLE question (
             questionId INTEGER PRIMARY KEY,
             questionTitle TEXT,
-            question,
+            question TEXT,
             answerOne TEXT,
             answerTwo TEXT,
             answerThree TEXT,
