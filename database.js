@@ -16,7 +16,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
             answerOne TEXT,
             answerTwo TEXT,
             answerThree TEXT,
-            correctAnswer INTEGER
+            correctAnswer TEXT
             )`, (err) => {
             if (err) {
                 console.log(err)
@@ -28,6 +28,5 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
         })
     }
 })
-
 
 module.exports = db
