@@ -16,7 +16,8 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
             answerOne TEXT,
             answerTwo TEXT,
             answerThree TEXT,
-            correctAnswer TEXT
+            correctAnswer TEXT,
+            imgLink TEXT
             )`, (err) => {
             if (err) {
                 console.log(err)
