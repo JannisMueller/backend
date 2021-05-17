@@ -13,11 +13,11 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
             questionId INTEGER PRIMARY KEY,
             questionTitle TEXT,
             question TEXT,
+            questionImg TEXT,
             answerOne TEXT,
             answerTwo TEXT,
             answerThree TEXT,
-            correctAnswer TEXT,
-            imgLink TEXT
+            correctAnswer TEXT
             )`, (err) => {
             if (err) {
                 console.log(err)
