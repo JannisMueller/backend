@@ -59,14 +59,14 @@ app.post("/api/question/", (req, res, next) => {
     var data = {
         questionTitle: req.body.questionTitle,
         question: req.body.question,
+        questionImg: req.body.questionImg,
         answerOne: req.body.answerOne,
         answerTwo: req.body.answerTwo,
         answerThree: req.body.answerThree,
         correctAnswer: req.body.correctAnswer,
-        imgLink: req.body.imgLink
     }
-    var sql ='INSERT INTO question (questionTitle, question, answerOne, answerTwo, answerThree, correctAnswer, imgLink) VALUES (?,?,?,?,?,?,?)'
-    var params =[data.questionTitle, data.question, data.answerOne, data.answerTwo, data.answerThree, data.correctAnswer, data.imgLink]
+    var sql ='INSERT INTO question (questionTitle, question, questionImg, answerOne, answerTwo, answerThree, correctAnswer) VALUES (?,?,?,?,?,?,?)'
+    var params =[data.questionTitle, data.question, data.questionImg, data.answerOne, data.answerTwo, data.answerThree, data.correctAnswer]
     db.run(sql, params, function (err, result) {
         if (err){
             res.status(400).json({"error": err.message})
@@ -84,14 +84,14 @@ app.put("/api/question/:id", (req, res, next) => {
     var data = {
         questionTitle: req.body.questionTitle,
         question: req.body.question,
+        questionImg: req.body.questionImg,
         answerOne: req.body.answerOne,
         answerTwo: req.body.answerTwo,
         answerThree: req.body.answerThree,
-        correctAnswer: req.body.correctAnswer,
-        imgLink: req.body.imgLink
+        correctAnswer: req.body.correctAnswer
     }
-    var sql ='UPDATE question SET questionTitle = ?, question = ?, answerOne = ?, answerTwo = ?, answerThree = ?, correctAnswer = ?, imgLink = ? WHERE questionId = ?'
-    var params =[data.questionTitle, data.question, data.answerOne, data.answerTwo, data.answerThree, data.correctAnswer, data.imgLink, req.params.id]
+    var sql ='UPDATE question SET questionTitle = ?, question = ?, questionImg = ?, answerOne = ?, answerTwo = ?, answerThree = ?, correctAnswer = ? WHERE questionId = ?'
+    var params =[data.questionTitle, data.question, data.questionImg, data.answerOne, data.answerTwo, data.answerThree, data.correctAnswer, req.params.id]
     db.run(sql, params, function (err, result) {
         if (err){
             res.status(400).json({"error": err.message})
