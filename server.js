@@ -4,6 +4,7 @@ var express = require("express")
 var app = express()
 var cors = require('cors')
 var db = require("./database.js")
+var highscoreDB = require("./highscore-db")
 
 app.use(cors())
 app.use(express.static('public'))
@@ -23,6 +24,20 @@ app.get("/", (req, res, next) => {
     res.json("Server is running")
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*API 2*/
+
+app.get("/api/highscore/", ((req, res, next) => {
+  var sql = "select * from highscore"
+  var params = []
+    highscoreDB.all(sql, params, (err, rows) => {
+        if (err) {
+            res.status(400).json({"error": err.message})
+            return;
+        }
+        res.json(rows)
+    })
+}));
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*SERVER ROUTING*/

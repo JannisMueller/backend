@@ -10,7 +10,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
     }else{
         console.log('Connected to the SQlite database.')
 
-        db.run(`CREATE TABLE question (
+        db.run(`CREATE TABLE IF NOT EXISTS question (
             questionId INTEGER PRIMARY KEY,
             questionTitle TEXT,
             question TEXT,
