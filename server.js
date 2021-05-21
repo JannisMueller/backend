@@ -1,4 +1,5 @@
 /*SERVER DEFAULT CONFIGS*/
+var currentDate = new Date()
 
 var express = require("express")
 var app = express()
@@ -28,7 +29,7 @@ app.get("/", (req, res, next) => {
 /*API 2*/
 
 app.get("/api/highscore/", ((req, res, next) => {
-  var sql = "select * from highscore"
+  var sql = "select * from highscore ORDER BY id DESC"
   var params = []
     highscoreDB.all(sql, params, (err, rows) => {
         if (err) {
@@ -38,6 +39,56 @@ app.get("/api/highscore/", ((req, res, next) => {
         res.json(rows)
     })
 }));
+
+app.get("/api/highscore/top3/", ((req, res, next) => {
+    var sql = "select * from highscore ORDER BY score DESC LIMIT 3"
+    var params = []
+    highscoreDB.all(sql, params, (err, rows) => {
+        if (err) {
+            res.status(400).json({"error": err.message})
+            return;
+        }
+        res.json(rows)
+    })
+}));
+
+app.post("/api/highscore/", (req, res, next) => {
+    var errors=[]
+    if (!req.body.name){
+        errors.push("No name?");
+    }
+    var data = {
+        name: req.body.name,
+        score: req.body.score,
+        date: new Date()
+    }
+    var sql ='INSERT INTO highscore (name, score, date) VALUES (?,?,?)'
+    var params =[data.name, data.score, data.date]
+    highscoreDB.run(sql, params, function (err, result) {
+        if (err){
+            res.status(400).json({"error": err.message})
+            return;
+        }
+        res.json({
+            "message":"created",
+            "highscore": data,
+            "id" : this.lastID
+        })
+    });
+})
+
+app.delete("/api/highscore/:id", (req, res, next) => {
+    highscoreDB.run(
+        'DELETE FROM highscore WHERE id = ?',
+        req.params.id,
+        function (err, result) {
+            if (err){
+                res.status(400).json({"error": res.message})
+                return;
+            }
+            res.json({"message":"deleted", rows: this.changes})
+        });
+})
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*SERVER ROUTING*/
