@@ -1,5 +1,4 @@
 /*SERVER DEFAULT CONFIGS*/
-var currentDate = new Date()
 
 var express = require("express")
 var app = express()
@@ -60,7 +59,7 @@ app.post("/api/highscore/", (req, res, next) => {
     var data = {
         name: req.body.name,
         score: req.body.score,
-        date: new Date()
+        date: req.body.date
     }
     var sql ='INSERT INTO highscore (name, score, date) VALUES (?,?,?)'
     var params =[data.name, data.score, data.date]
